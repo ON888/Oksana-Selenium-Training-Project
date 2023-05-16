@@ -14,8 +14,11 @@ namespace Oksana_Selenium_Training_Project
         [SetUp]
         public void Setup()
         {
+            FirefoxOptions options = new FirefoxOptions();
+            options.AcceptInsecureCertificates = true;
+
             drvChrome = new ChromeDriver(); // create instance of the Chrome browser
-            drvFirefox = new FirefoxDriver(); // create instance of the Firefox browser
+            drvFirefox = new FirefoxDriver(options); // create instance of the Firefox browser
             drvEdge = new EdgeDriver(); // create instance of the Edge browser
         }
 
@@ -30,7 +33,7 @@ namespace Oksana_Selenium_Training_Project
         [Test]
         public void Test_Chrome()
         {
-            drvChrome.Navigate().GoToUrl("https://google.com");
+            drvChrome.Navigate().GoToUrl("https://www.google.com/");
             drvChrome.FindElement(By.CssSelector("[name=q]")).SendKeys("Selenium");
 
             //Assert.Pass();
@@ -38,7 +41,7 @@ namespace Oksana_Selenium_Training_Project
         [Test]
         public void Test_Firefox()
         {
-            drvFirefox.Navigate().GoToUrl("https://google.com");
+            drvFirefox.Navigate().GoToUrl("https://www.google.com/");
             drvFirefox.FindElement(By.CssSelector("[name=q]")).SendKeys("Selenium");
 
             //Assert.Pass();
@@ -46,7 +49,7 @@ namespace Oksana_Selenium_Training_Project
         [Test]
         public void Test_Edge()
         {
-            drvEdge.Navigate().GoToUrl("https://google.com");
+            drvEdge.Navigate().GoToUrl("https://www.google.com/");
             drvEdge.FindElement(By.CssSelector("[name=q]")).SendKeys("Selenium");
 
             //Assert.Pass();
