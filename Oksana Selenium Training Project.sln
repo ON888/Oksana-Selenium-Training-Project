@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOPickUpTest", "LoginFlowTest\WOPickUpTest.csproj", "{3A47C798-DD0C-4652-B2A4-643A39A07425}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "First Selenium Test", "FirstSeleniumTest\First Selenium Test.csproj", "{C5E2099D-AE80-4CB1-9B87-11B4FE526B4C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOPickUpTest", "WOPickUpTest\WOPickUpTest.csproj", "{E3832ED8-219B-437F-862E-D333C1AB1849}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3A47C798-DD0C-4652-B2A4-643A39A07425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A47C798-DD0C-4652-B2A4-643A39A07425}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A47C798-DD0C-4652-B2A4-643A39A07425}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A47C798-DD0C-4652-B2A4-643A39A07425}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C5E2099D-AE80-4CB1-9B87-11B4FE526B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C5E2099D-AE80-4CB1-9B87-11B4FE526B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5E2099D-AE80-4CB1-9B87-11B4FE526B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5E2099D-AE80-4CB1-9B87-11B4FE526B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3832ED8-219B-437F-862E-D333C1AB1849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3832ED8-219B-437F-862E-D333C1AB1849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3832ED8-219B-437F-862E-D333C1AB1849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3832ED8-219B-437F-862E-D333C1AB1849}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
