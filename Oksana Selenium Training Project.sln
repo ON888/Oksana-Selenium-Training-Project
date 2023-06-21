@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "First Selenium Test", "Firs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WOPickUpTest", "WOPickUpTest\WOPickUpTest.csproj", "{E3832ED8-219B-437F-862E-D333C1AB1849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginTest", "..\LoginTest\LoginTest.csproj", "{7EDA1241-15B6-4B53-A099-C7EBEA5C8957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoginTest", "..\LoginTest\LoginTest.csproj", "{7EDA1241-15B6-4B53-A099-C7EBEA5C8957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
