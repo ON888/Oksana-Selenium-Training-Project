@@ -21,7 +21,8 @@ namespace WOPickUpTest
             .SendKeys(Environment.GetEnvironmentVariable("ENT_QA_COMPANY"));
             drv.FindElement(By.CssSelector("input.btn.login-submit-button")).Click(); //SendKeys(Keys.Enter);
             Thread.Sleep(4000);
-            //Assert.True(isVisible(By.CssSelector("div.menu-secondary ul li.menu-user a.menu-drop")));
+            
+            Assert.True(isVisible(By.CssSelector("div.menu-secondary ul li.menu-user a.menu-drop")));
         }
 
         [TearDown]
@@ -34,7 +35,8 @@ namespace WOPickUpTest
         public void TestWOflow()
         {
             //Navigate to WO List page
-            drv.Navigate().GoToUrl("https://onarequestorlt.corrigo-qa.com/corpnet/workorder/workorderlist.aspx");
+            drv.Navigate().GoToUrl(Environment.GetEnvironmentVariable("ENT_QA_BASE_URL") +
+                     "/CorpNet/workorder/workorderlist.aspx");
             
             // Preserve WO# with New Status that is going to be Picked Up to return to t later
             var woNumber = drv.FindElement(By.XPath("//td[@data-column='WOStatus'][contains(text(), 'New')][1]/following-sibling::td/a")).Text;
@@ -72,6 +74,11 @@ namespace WOPickUpTest
 
 
             Thread.Sleep(4000);
+        }
+
+        private bool isVisible(By locator)
+        {
+            return drv.FindElements(locator).Count > 0;
         }
     }
 }
