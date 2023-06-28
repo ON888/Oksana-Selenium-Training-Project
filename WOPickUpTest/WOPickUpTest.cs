@@ -85,7 +85,7 @@ namespace WOPickUpTest
             //Closing the Quick View dialog
             drv.FindElement(By.XPath("//button[@class='close btn-dismiss']")).Click();
 
-            wait.Until(ExpectedConditions.StalenessOf(woLinkElement));
+            wait.Until(ExpectedConditions.StalenessOf(woLinkElement)); //wait until wo link is stale
 
             //wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#WoListGrid")));
             //wait.Until(ExpectedConditions.StalenessOf(drv.FindElement(By.CssSelector("#WoListGrid tbody"))));
