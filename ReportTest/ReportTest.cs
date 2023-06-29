@@ -68,7 +68,11 @@ namespace ReportTest
             var toggle = By.XPath("//div[@class='widget-row showHeaders']//span[@class='k-switch-container km-switch-container']");
             drv.FindElement(toggle).Click();
 
+            //Click generate Report button
             drv.FindElement(By.XPath("//button[@class='btn btn-primary id-generate-button']")).Click();
+            
+            
+            wait.Until(drv => drv.WindowHandles.Count > count);
             count = drv.WindowHandles.Count();
 
             drv.SwitchTo().Window(handles[count]);
@@ -78,9 +82,11 @@ namespace ReportTest
 
             Assert.That(report.Text, Is.EqualTo(reportTitle));
 
+            drv.Close();
 
+            drv.SwitchTo().Window(currentHandle);
 
-
+            drv.FindElement(By.XPath("//button[@class='btn btn-default id-btn-close']")).Click();
         }
     }
 }
