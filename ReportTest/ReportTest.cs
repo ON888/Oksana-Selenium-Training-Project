@@ -2,7 +2,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using System.Reflection.Emit;
 
 namespace ReportTest
 {
@@ -21,7 +20,7 @@ namespace ReportTest
         {
             drv = new ChromeDriver(); // create instance of the Chrome browser
 
-            wait = new WebDriverWait(drv, TimeSpan.FromSeconds(5)); // explicit waits: wait object creation
+            wait = new WebDriverWait(drv, TimeSpan.FromSeconds(10)); // explicit waits: wait object creation
 
             drv.Navigate().GoToUrl(baseUrl + "/CorpNet/Login.aspx");
             wait.Until(ExpectedConditions.ElementToBeClickable(By.Name("username"))).SendKeys($"{username}"); //wait and enter username from env variables
@@ -52,24 +51,33 @@ namespace ReportTest
             drv.Navigate().GoToUrl(baseUrl + "/CorpNet/report/reportlist.aspx");
             //wait until link in the first row is clickable
 
-            wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//tbody/tr[1]/td[@data-column='DisplayAs']/a"))).Click();
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#ReportsListGrid")));
+            
+            var reportlink = drv.FindElement(By.XPath("//tbody/tr[1]/td[@data-column='DisplayAs']/a"));
+
+            var reportTitle = reportlink.Text;
+
+            wait.Until(ExpectedConditions.ElementToBeClickable(reportlink)).Click();
 
             var count= drv.WindowHandles.Count();
 
-            drv.SwitchTo().Window(handles.Last());
-
-
             var reportDialog = By.XPath("//*[@data-role='generatereportdialog']");
-            
+                       
             wait.Until(drv => drv.FindElement(reportDialog));
             
-            //var label = drv.FindElement(By.XPath("//form[@class='corrigo-form']//label[text()='Show Report Header']"));
-            var toggle = By.XPath("//form[@class='corrigo-form']//label[text()='Show Report Header']/ancestor::*[@class='widget-row showHeaders']//span[@class='k-switch-container km-switch-container']");
+            var toggle = By.XPath("//div[@class='widget-row showHeaders']//span[@class='k-switch-container km-switch-container']");
             drv.FindElement(toggle).Click();
 
             drv.FindElement(By.XPath("//button[@class='btn btn-primary id-generate-button']")).Click();
+            count = drv.WindowHandles.Count();
 
-            drv.SwitchTo().Window(handles.Last());
+            drv.SwitchTo().Window(handles[count]);
+            var report = drv.FindElement(By.CssSelector("table.A976b6f32f4ec47b89c3ab60935aab3b632"));
+
+            wait.Until(ExpectedConditions.StalenessOf(report));
+
+            Assert.That(report.Text, Is.EqualTo(reportTitle));
+
 
 
 
