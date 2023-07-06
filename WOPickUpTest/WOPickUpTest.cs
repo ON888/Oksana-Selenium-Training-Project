@@ -9,10 +9,10 @@ namespace WOPickUpTest
     {
         IWebDriver drv;
         WebDriverWait wait;
-        private string baseUrl = Environment.GetEnvironmentVariable("ENT_QA_BASE_URL");
-        private string password = Environment.GetEnvironmentVariable("ENT_QA_PASS");
-        private string username = Environment.GetEnvironmentVariable("ENT_QA_USER");
-        private string company= Environment.GetEnvironmentVariable("ENT_QA_COMPANY");
+        readonly string baseUrl = Environment.GetEnvironmentVariable("ENT_QA_BASE_URL");
+        readonly string password = Environment.GetEnvironmentVariable("ENT_QA_PASS");
+        readonly string username = Environment.GetEnvironmentVariable("ENT_QA_USER");
+        readonly string company= Environment.GetEnvironmentVariable("ENT_QA_COMPANY");
 
         [SetUp]
         public void Setup()
