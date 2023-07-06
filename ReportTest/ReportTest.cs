@@ -10,10 +10,10 @@ namespace ReportTest
         IWebDriver drv;
         WebDriverWait wait;
 
-        string baseUrl = Environment.GetEnvironmentVariable("ENT_QA_BASE_URL");
-        string password = Environment.GetEnvironmentVariable("ENT_QA_PASS");
-        string username = Environment.GetEnvironmentVariable("ENT_QA_USER");
-        string company = Environment.GetEnvironmentVariable("ENT_QA_COMPANY");
+       readonly string baseUrl = Environment.GetEnvironmentVariable("ENT_QA_BASE_URL");
+       readonly string password = Environment.GetEnvironmentVariable("ENT_QA_PASS");
+       readonly string username = Environment.GetEnvironmentVariable("ENT_QA_USER");
+       readonly string company = Environment.GetEnvironmentVariable("ENT_QA_COMPANY");
 
         [SetUp]
         public void Setup()
@@ -40,7 +40,10 @@ namespace ReportTest
             drv.Quit(); //close browser
 
         }
-
+        private bool IsVisible(By locator)
+        {
+            return drv.FindElements(locator).Count > 0;
+        }
 
         [Test]
         public void Report()
@@ -70,17 +73,25 @@ namespace ReportTest
 
             //Click generate Report button
             drv.FindElement(By.XPath("//button[@class='btn btn-primary id-generate-button']")).Click();
-            
-            
+
+            handles = drv.WindowHandles;
+            // count = drv.WindowHandles.Count();
+
             wait.Until(drv => drv.WindowHandles.Count > count);
-            count = drv.WindowHandles.Count();
-
+           
+            //Switching to a new window
             drv.SwitchTo().Window(handles[count]);
-            var report = drv.FindElement(By.CssSelector("table.A976b6f32f4ec47b89c3ab60935aab3b632"));
+            
 
-            wait.Until(ExpectedConditions.StalenessOf(report));
+            // get to find span with role navgation that includes Report name
+            var report = drv.FindElement(By.XPath("//title"));
 
-            Assert.That(report.Text, Is.EqualTo(reportTitle));
+                        
+            wait.Until(drv => drv.FindElement(By.XPath("//title")));
+
+            Assert.That(IsVisible(By.XPath($"//span[contains(text(),'{reportTitle}')]")), Is.True);
+
+            //Assert.That(report, Is.EqualTo(reportTitle));
 
             drv.Close();
 
