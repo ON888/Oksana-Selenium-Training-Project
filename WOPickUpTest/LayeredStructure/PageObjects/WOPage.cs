@@ -12,18 +12,21 @@ namespace OksanaTests.LayeredStructure.PageObjects
     public class WOPage : BasePage
     {
         string commentText = "Pick-Up Comment Auto";
-
+        
         public WOPage(ApplicationContext context) : base(context)
         {
         
         }
 
-        public void PickUp()
+        public string PickUp()
         {
-            
-
             //PickUp WO Quick View dialog with a comment
-            drv.FindElement(By.XPath("//td[@data-column='WOStatus'][contains(text(), 'New')][1]/following-sibling::td/a")).Click();
+            By wolink = By.XPath("//td[@data-column='WOStatus'][contains(text(), 'New')][1]/following-sibling::td/a");
+                     
+            IWebElement woLinkElement = wait.Until(drv => drv.FindElement(wolink));
+            string woNumber = drv.FindElement(wolink).Text;
+
+            drv.FindElement(wolink).Click();
 
             // Action Pick Up with wait for element to be clickable
             wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//div[@data-role='woqvdialog']//span[@title='Pick-Up']"))).Click();
@@ -36,7 +39,7 @@ namespace OksanaTests.LayeredStructure.PageObjects
 
             //Close WO Quick View dialog
             drv.FindElement(By.XPath("//div[@data-role='woactionpickupeditdialog']//button[@class='btn btn-primary id-btn-save']")).Click();
-
+            return woNumber;
 
         }
         public Tuple<string, string> VerifyComment()

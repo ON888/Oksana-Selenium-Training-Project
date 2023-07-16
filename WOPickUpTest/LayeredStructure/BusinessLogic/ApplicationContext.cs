@@ -4,11 +4,11 @@ namespace OksanaTests.LayeredStructure.BusinessLogic
 {
     public record ApplicationContext
     {
-        public IWebDriver drv { get; set; }        
-        public string baseUrl { get; set; }
-        public string password { get; set; }
-        public string username { get; set; }
-        public string company { get; set; }
+        public IWebDriver drv { get; set; } = null!;     
+        public string baseUrl { get; set; } = null!;
+        public string password { get; set; } = null!;
+        public string username { get; set; } = null!;
+        public string company { get; set; } = null!;
 
 
     }

@@ -1,7 +1,5 @@
 ﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium;
-using SeleniumExtras.WaitHelpers;
 using OksanaTests.LayeredStructure.BusinessLogic;
 using OksanaTests.LayeredStructure.PageObjects;
 
@@ -18,13 +16,12 @@ namespace OksanaTests.LayeredStructure
         private readonly WOListPage _woListPage;
 
 
-        By wolink;
-        IWebElement woLinkElement;
+        //By wolink;
+        //IWebElement woLinkElement;
         string woNumber;
 
         public CEApplication()
         {
-            _context = new ApplicationContext();
 
             var opt = new ChromeOptions();
             opt.AddArguments("start-maximized");
@@ -32,12 +29,16 @@ namespace OksanaTests.LayeredStructure
             var drv = new ChromeDriver(opt);
             _wait = new WebDriverWait(drv, TimeSpan.FromSeconds(5)); // explicit waits: wait object creation
 
+            _context = new ApplicationContext()
+            {
+                drv = drv,
+                baseUrl = Environment.GetEnvironmentVariable("ENT_QA_BASE_URL"),
+                password = Environment.GetEnvironmentVariable("ENT_QA_PASS"),
+                username = Environment.GetEnvironmentVariable("ENT_QA_USER"),
+                company = Environment.GetEnvironmentVariable("ENT_QA_COMPANY")!
 
-            _context.drv = drv;
-            _context.baseUrl = Environment.GetEnvironmentVariable("ENT_QA_BASE_URL");
-            _context.password = Environment.GetEnvironmentVariable("ENT_QA_PASS");
-            _context.username = Environment.GetEnvironmentVariable("ENT_QA_USER");
-            _context.company = Environment.GetEnvironmentVariable("ENT_QA_COMPANY");
+            };  
+                      
 
             _loginPage = new LoginPage(_context);
             _woPage = new WOPage(_context);
@@ -55,22 +56,25 @@ namespace OksanaTests.LayeredStructure
         //    woLinkElement = wait.Until(drv => drv.FindElement(wolink));
         //    woNumber = drv.FindElement(wolink).Text;
         //}
-        public void Login()
+        public CEApplication Login()
         {
             _loginPage.LoginwithDefaultUser();
-
+            return this;
         }
 
 
 
-        public void OpenWOListPage()
+        public CEApplication OpenWOListPage()
         {
             _woListPage.Open();
+            return this;    
         }
 
-        public void PickUpWO(string _commentText)
+        public CEApplication PickUpWO(string _commentText)
         {
-            _woPage.PickUp();
+            woNumber = _woPage.PickUp();
+            
+            return this;    
         }
 
         public Tuple <string, string> VerifyWOStatusWithComment()  
@@ -80,7 +84,8 @@ namespace OksanaTests.LayeredStructure
 
         public string VerifyWOStatusChangedToOpen()
         {
-            return _woListPage.StatusChangeToOpen();
+            
+            return _woListPage.StatusChangeToOpen(woNumber);
             
         }
 

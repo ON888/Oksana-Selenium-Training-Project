@@ -4,14 +4,14 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using OksanaTests.LayeredStructure.BusinessLogic;
 
 namespace OksanaTests.LayeredStructure
 {
     public class PickupWOTest
 
     {
-        private CEApplication app;
-
+        
         [OneTimeSetUp]
         public void OneTimeSetUp()
         { 
@@ -24,18 +24,21 @@ namespace OksanaTests.LayeredStructure
         {
             app.CloseApp();       
         }
+        private CEApplication app;
 
         [Test]
         public void PickupWO()
         {
-            var commentText = "Pick-Up Comment Auto";
-            var ret = app.VerifyWOStatusWithComment();
+            const string commentText = "Pick-Up Comment Auto";
+            
             //var text = app.VerifyWOStatusChangedToOpen();
 
             app.Login();
             app.OpenWOListPage();
             app.PickUpWO(commentText);
-            
+
+            var ret = app.VerifyWOStatusWithComment();
+
             //Check in the Activity log that Action "Picked Up" is displayed with Comment
 
             Assert.Multiple(() =>
@@ -46,7 +49,6 @@ namespace OksanaTests.LayeredStructure
             
             app.CloseWOWindow();
             
-            app.VerifyWOStatusChangedToOpen();
 
             Assert.That(app.VerifyWOStatusChangedToOpen(), Is.EqualTo("Open"));
         }
