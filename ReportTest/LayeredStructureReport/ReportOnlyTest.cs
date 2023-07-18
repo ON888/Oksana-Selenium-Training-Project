@@ -8,12 +8,8 @@ using System.Collections.ObjectModel;
 namespace ReportTest.LayeredStructureReport
 {
     public class ReportOnlyTest 
-        //: Visible
     {
-       //public ReportOnlyTest(ApplicationContext context) : base(context)
-        //{
-        //}
-
+       
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
@@ -49,13 +45,13 @@ namespace ReportTest.LayeredStructureReport
 
             app.SwitchToNewTab(handles, count);
 
+            // Assert that Report title from List page and title in opened Report are the same
             
             Assert.That(app.IsVisible(By.XPath($"//span[contains(text(),'{reportTitle}')]")), Is.True);
                           
             Assert.True(app.CheckReportTitle().Contains(reportTitle));
 
             
-
             app.SwitchToReportListPageTab(currentHandle);
             app.CloseReport();
 
