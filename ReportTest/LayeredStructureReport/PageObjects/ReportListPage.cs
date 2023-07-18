@@ -17,6 +17,8 @@ namespace ReportTest.LayeredStructureReport.PageObjects
         public string OpenReportListPage()
         {
             drv.Navigate().GoToUrl(context.baseUrl + "/CorpNet/report/reportlist.aspx");
+            drv.Manage().Window.Maximize();
+
             //wait until link in the first row is clickable
 
             wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#ReportsListGrid")));
