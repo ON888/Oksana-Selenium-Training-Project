@@ -84,14 +84,14 @@ namespace ReportTest
             
 
             // get to find span with role navgation that includes Report name
-            var report = drv.FindElement(By.XPath("//title"));
+            var report = drv.FindElement(By.XPath("//title")).GetAttribute("text");
 
                         
             wait.Until(drv => drv.FindElement(By.XPath("//title")));
 
             Assert.That(IsVisible(By.XPath($"//span[contains(text(),'{reportTitle}')]")), Is.True);
 
-            //Assert.That(report, Is.EqualTo(reportTitle));
+            Assert.True(report.Contains(reportTitle));
 
             drv.Close();
 
