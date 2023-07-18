@@ -42,10 +42,11 @@ namespace ReportTest.LayeredStructureReport.BusinessLogic
             return this;
         }
 
-        public Application ReportListPage()
+        public string ReportListPage()
         {
-            _reportPage.OpenReportListPage();
-            return this;
+           var title = _reportPage.OpenReportListPage();
+
+            return title;
         }
 
         public Application GererateReport()
@@ -80,16 +81,22 @@ namespace ReportTest.LayeredStructureReport.BusinessLogic
             return this;
         }
 
-        public Application CheckReportTitle()
+        public string CheckReportTitle()
         {
-            _reportPage.GetReportTitle();
-            return this;
+            
+            return _reportPage.GetReportTitle();
         }
 
         public Application CloseReport()
         {
             _reportPage.CloseGenerateReportDialog();
             return this;
+        }
+
+
+        public bool IsVisible(By locator)
+        {
+            return _context.drv.FindElements(locator).Count > 0;
         }
 
     }

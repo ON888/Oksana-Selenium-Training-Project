@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework.Internal.Execution;
+using OpenQA.Selenium;
 using ReportTest.LayeredStructure.PageObjects;
 using ReportTest.LayeredStructureReport.BusinessLogic;
 using SeleniumExtras.WaitHelpers;
@@ -49,7 +50,7 @@ namespace ReportTest.LayeredStructureReport.PageObjects
 
 
             wait.Until(drv => drv.FindElement(By.XPath("//title")));
-            var reportText= report.Text;
+            var reportText= report.GetAttribute("text");
             
             return reportText;
         }

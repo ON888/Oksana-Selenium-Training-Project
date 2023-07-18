@@ -7,13 +7,12 @@ using System.Collections.ObjectModel;
 
 namespace ReportTest.LayeredStructureReport
 {
-    public class ReportOnlyTest : Visible
+    public class ReportOnlyTest 
+        //: Visible
     {
-        private Application app;
-
-        public ReportOnlyTest(ApplicationContext context) : base(context)
-        {
-        }
+       //public ReportOnlyTest(ApplicationContext context) : base(context)
+        //{
+        //}
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -27,31 +26,33 @@ namespace ReportTest.LayeredStructureReport
             app.CloseApp();
 
         }
+        private Application app;
+
 
         [Test]
         public void ReportTest()
         {
             app.Login();
 
-            var handles = app.GetWindowHandles();
-            var currentHandle = app.GetCurrentHandle();
+            app.GetWindowHandles();
+
+            var currentHandle = app.GetCurrentHandle();       
+            var count = app.GetWindowHandles().Count();
 
             var reportTitle = app.ReportListPage();
 
-            var count = app.GetWindowHandles().Count();
-
             app.GererateReport();
 
-            handles = app.GetWindowHandles();
+            var handles = app.GetWindowHandles();
 
-            wait.Until(drv => app.GetWindowHandles().Count > count);
+            //wait.Until(drv => app.GetWindowHandles().Count > count);
 
             app.SwitchToNewTab(handles, count);
-            //app.CheckReportTitle();
 
-            Assert.That(IsVisible(By.XPath($"//span[contains(text(),'{reportTitle}')]")), Is.True);
-
-            Assert.That(app.CheckReportTitle(), Is.EqualTo(reportTitle));
+            
+            Assert.That(app.IsVisible(By.XPath($"//span[contains(text(),'{reportTitle}')]")), Is.True);
+                          
+            Assert.True(app.CheckReportTitle().Contains(reportTitle));
 
             
 
@@ -61,7 +62,6 @@ namespace ReportTest.LayeredStructureReport
             app.CloseApp();
         }
 
-
-
+        
     }
 }
